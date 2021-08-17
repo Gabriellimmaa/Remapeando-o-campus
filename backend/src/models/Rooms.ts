@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('Bandeirantes1')
+@Entity('rooms')
 export default class Bandeirantes {
     @PrimaryGeneratedColumn('increment')
     id: number;
@@ -9,10 +9,16 @@ export default class Bandeirantes {
     name: string;
 
     @Column()
+    campus: string;
+
+    @Column()
     latitude: number;
 
     @Column()
     longitude: number;
+
+    @Column()
+    weight: number;
 
     @Column()
     description: string;

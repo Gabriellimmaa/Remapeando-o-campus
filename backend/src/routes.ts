@@ -1,12 +1,12 @@
 import { Router } from "express";
 
-import Bandeirantes1Controller from "./controllers/Bandeirantes1Controller";
+import RoomController from "./controllers/RoomController";
 
 const routes = Router();
 
-routes.get('/bandeirantes1', Bandeirantes1Controller.index);
-routes.get('/bandeirantes1/:id', Bandeirantes1Controller.show);
-routes.post('/bandeirantes1', Bandeirantes1Controller.create);
+routes.get('/room', RoomController.index);
+routes.get('/room/:id', RoomController.show);
+routes.post('/room', RoomController.create);
 
 
 export default routes;

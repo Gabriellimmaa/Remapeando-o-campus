@@ -1,10 +1,10 @@
-import { MigrationInterface, QueryRunner, Table } from "typeorm";
+import {MigrationInterface, QueryRunner, Table} from "typeorm";
 
-export class Bandeirantes11628506006976 implements MigrationInterface {
+export class rooms1629231333404 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(new Table({
-            name: 'bandeirantes1',
+            name: 'rooms',
             columns: [
                 {
                     name: 'id',
@@ -16,6 +16,10 @@ export class Bandeirantes11628506006976 implements MigrationInterface {
                 },
                 {
                     name: 'name',
+                    type: 'varchar'
+                },
+                {
+                    name: 'campus',
                     type: 'varchar'
                 },
                 {
@@ -31,6 +35,10 @@ export class Bandeirantes11628506006976 implements MigrationInterface {
                     precision: 2,
                 },
                 {
+                    name: 'weight',
+                    type: 'number',
+                },
+                {
                     name: 'description',
                     type: 'text',
                 }
@@ -39,7 +47,7 @@ export class Bandeirantes11628506006976 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable('Bandeirantes1');
+        await queryRunner.dropTable('rooms');
     }
 
 }

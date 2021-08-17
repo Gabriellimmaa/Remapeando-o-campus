@@ -2,23 +2,23 @@ import { Request, Response } from "express";
 
 import { getRepository } from "typeorm";
 
-import Bandeirantes1  from "../models/Bandeirante1";
+import rooms  from "../models/Rooms";
 
 export default {
     async index(request: Request, response: Response) {
-        const bandeirantes1Repository = getRepository(Bandeirantes1);
+        const roomsRepository = getRepository(rooms);
 
-        const rooms = await bandeirantes1Repository.find();
+        const room = await roomsRepository.find();
         
-        return response.json(rooms);
+        return response.json(room);
     },
 
     async show(request: Request, response: Response) {
         const { id } = request.params;
 
-        const bandeirantes1Repository = getRepository(Bandeirantes1);
+        const roomsRepository = getRepository(rooms);
 
-        const room = await bandeirantes1Repository.findOneOrFail(id);
+        const room = await roomsRepository.findOneOrFail(id);
         
         return response.json(room);
     },
@@ -26,21 +26,25 @@ export default {
     async create(request: Request, response: Response) {
         const {
             name,
+            campus,
             latitude,
             longitude,
+            weight,
             description
         } = request.body;
     
-        const bandeirantes1Repository = getRepository(Bandeirantes1);
+        const roomsRepository = getRepository(rooms);
     
-        const room = bandeirantes1Repository.create({
+        const room = roomsRepository.create({
             name,
+            campus,
             latitude,
             longitude,
+            weight,
             description
         });
     
-        await bandeirantes1Repository.save(room);
+        await roomsRepository.save(room);
     
         return response.status(201).json(room);
     }
