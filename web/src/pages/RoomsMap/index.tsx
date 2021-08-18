@@ -11,7 +11,7 @@ import Leaflet from 'leaflet';
 import { FiArrowRight } from 'react-icons/fi';
 
 import marker from "../../assets/UenpLogoPequena.png";
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import api from '../../services/api';
 import { useState } from 'react';
@@ -30,14 +30,27 @@ interface RoomsProps {
     longitude: number;
 }
 
-export function BandMap1() {
+interface RouteParamsProps {
+    latitude: string;
+    longitude: string;
+}
+
+export function RoomMap() {
+    const { latitude, longitude } = useParams<RouteParamsProps>();
     const [rooms, setRooms] = useState<RoomsProps[]>([]);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        api.get('bandeirantes1').then(response => {
+        api.get('room').then(response => {
             setRooms(response.data)
+            setLoading(true)
         });
     }, []);
+
+    if (!loading) {
+        return null;
+    }
 
     return (
         <div className="pageMap">
@@ -47,10 +60,10 @@ export function BandMap1() {
                 </header>
             </aside>
 
-            <Map center={[-23.108, -50.3594239]} zoom={15} style={{
+            <Map center={[Number(latitude), Number(longitude)]} zoom={15} style={{
                 width: '100%', height: '100%',
             }}>
-                <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
+                <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
                 {
                     rooms.map(rooms => {

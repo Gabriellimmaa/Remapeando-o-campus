@@ -10,24 +10,24 @@
     flex-direction: column;
 }
 
-select {
-    margin: 1rem 0 1rem 0;
-    padding: 10px 26px;
-    font-size: 1rem;
-    width: 19rem;
-    border-radius: 0.3rem;
-    cursor: pointer;
+.opc {
+    margin-top: 5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 60%;
 }
 
-a {
+.Link {
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
-    font-weight: 400;
+    font-weight: 700;
     background: #0066ff;
     color: var(--white);
-    width: 10rem;
-    height: 2rem;
+    width: 11rem;
+    height: 3rem;
     border-radius: 0.3rem;
+    font-size: 1.4rem;
 
     display: flex;
     justify-content: center;
@@ -36,6 +36,14 @@ a {
     transition: filter .2s;
 }
 
-a:hover {
+.Link:hover {
     filter: brightness(0.8);
+}
+
+.Link:first-child {
+    background: #6c6aff;
+}
+
+.Link:nth-child(2) {
+    background: brown;
 }
