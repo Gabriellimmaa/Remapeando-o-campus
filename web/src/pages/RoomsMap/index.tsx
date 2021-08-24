@@ -28,6 +28,7 @@ interface RoomsProps {
     name: String;
     latitude: number;
     longitude: number;
+    weight: number;
 }
 
 interface RouteParamsProps {
@@ -68,18 +69,19 @@ export function RoomMap() {
                 {
                     rooms.map(rooms => {
                         return (
+                            rooms.weight === 10 ? 
                             <Marker
-                                key={rooms.id}
-                                icon={mapIcon}
-                                position={[rooms.latitude, rooms.longitude]}
+                            key={rooms.id}
+                            icon={mapIcon}
+                            position={[rooms.latitude, rooms.longitude]}
                             >
-                                <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
-                                    {rooms.name}
-                                    <Link to={`/Room/${rooms.id}`}>
-                                        <FiArrowRight size={20} color="#FFF" />
-                                    </Link>
-                                </Popup>
-                            </Marker>
+                            <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
+                                {rooms.name}
+                                <Link to={`/Map/Room/${rooms.id}`}>
+                                    <FiArrowRight size={20} color="#FFF" />
+                                </Link>
+                            </Popup>
+                        </Marker> : null
                         )
                     })
                 }

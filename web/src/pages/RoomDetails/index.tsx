@@ -37,7 +37,7 @@ export default function RoomDetails() {
   console.log(room?.latitude)
 
   useEffect(() => {
-      api.get(`bandeirantes1/${id}`).then(response => {
+      api.get(`room/${id}`).then(response => {
           setRoom(response.data)
       });
   }, [id]);
