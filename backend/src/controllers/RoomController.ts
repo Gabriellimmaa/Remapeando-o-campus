@@ -47,5 +47,17 @@ export default {
         await roomsRepository.save(room);
     
         return response.status(201).json(room);
+    },
+
+    async delete(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const roomsRepository = getRepository(rooms);
+
+        await roomsRepository.delete(id);
+
+        const room = await roomsRepository.find();
+        
+        return response.json(room);
     }
 }

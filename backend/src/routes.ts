@@ -7,6 +7,7 @@ const routes = Router();
 routes.get('/room', RoomController.index);
 routes.get('/room/:id', RoomController.show);
 routes.post('/room', RoomController.create);
+routes.delete('/room/:id', RoomController.delete);
 
 
 export default routes;
