@@ -59,5 +59,33 @@ export default {
         const room = await roomsRepository.find();
         
         return response.json(room);
-    }
+    },
+
+    async update(request: Request, response: Response) {
+        const { id } = request.params;
+
+        const roomsRepository = getRepository(rooms);
+
+        const {
+            name,
+            campus,
+            latitude,
+            longitude,
+            weight,
+            description
+        } = request.body;
+
+        await roomsRepository.update(id, {
+            name,
+            campus,
+            latitude,
+            longitude,
+            weight,
+            description
+        });
+
+        const room = await roomsRepository.find();
+    
+        return response.status(201).json(room);
+    },
 }
