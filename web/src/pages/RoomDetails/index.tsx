@@ -48,17 +48,17 @@ export default function RoomDetails() {
 
       <main>
         <div className="room-details">
-          <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
+          <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
 
           <div className="images">
             <button className="active" type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
+              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
             </button>
             <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
+              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
             </button>
             <button type="button">
-              <img src="https://www.gcd.com.br/wp-content/uploads/2020/08/safe_image.jpg" alt="Lar das meninas" />
+              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
             </button>
           </div>
 

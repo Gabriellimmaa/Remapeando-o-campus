@@ -36,7 +36,7 @@ export function CreateRoom() {
         <Sidebar />
         <form className="create-room-form">
           <fieldset>
-            <legend>Dados</legend>
+            <legend>Cadastrar Sala</legend>
 
             <Map
               center={[-23.108, -50.3594239]}
@@ -45,7 +45,7 @@ export function CreateRoom() {
               onclick={handleMapClick}
             >
               <TileLayer
-                url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
               />
 
               {
