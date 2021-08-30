@@ -7,6 +7,8 @@ import rooms from "../models/Rooms";
 import roomView from '../views/room_view';
 
 export default {
+
+    // Exibe Todos as salas
     async index(request: Request, response: Response) {
         const roomsRepository = getRepository(rooms);
 
@@ -17,6 +19,8 @@ export default {
         return response.json(roomView.renderMany(room));
     },
 
+
+    // Exibe uma sala específica
     async show(request: Request, response: Response) {
         const { id } = request.params;
 
@@ -30,6 +34,8 @@ export default {
         return response.json(roomView.render(room));
     },
 
+
+    // Cria uma sala
     async create(request: Request, response: Response) {
         const {
             name,
@@ -63,6 +69,8 @@ export default {
         return response.status(201).json(room);
     },
 
+
+    // Deleta uma Sala
     async delete(request: Request, response: Response) {
         const { id } = request.params;
 
@@ -75,6 +83,8 @@ export default {
         return response.json(room);
     },
 
+
+    // Atualiza uma sala
     async update(request: Request, response: Response) {
         const { id } = request.params;
 
@@ -103,13 +113,14 @@ export default {
         return response.status(201).json(room);
     },
 
-    /*async showListRoom(request: Request, response: Response) {
+    
+    async showListRoom(request: Request, response: Response) {
         const { campus } = request.params;
 
         const roomsRepository = getRepository(rooms);
 
-        const room = await roomsRepository.find({ select: ["id"], where: { id: 1 } });
+        const room = await (await roomsRepository.find()).filter(a => a.campus === campus);
 
         return response.json(room);
-    },*/
+    },
 }
