@@ -4,23 +4,17 @@ import { getRepository } from "typeorm";
 
 import rooms from "../models/Rooms";
 
-interface IProps {
-    id: number
-    name: string
-    campus: string
-    latitude: number
-    longitude: number
-    weight: number
-    description: string
-}
+import roomView from '../views/room_view';
 
 export default {
     async index(request: Request, response: Response) {
         const roomsRepository = getRepository(rooms);
 
-        const room = await roomsRepository.find();
+        const room = await roomsRepository.find({
+            relations: ['images']
+        });
 
-        return response.json(room);
+        return response.json(roomView.renderMany(room));
     },
 
     async show(request: Request, response: Response) {
@@ -28,9 +22,12 @@ export default {
 
         const roomsRepository = getRepository(rooms);
 
-        const room = await roomsRepository.findOneOrFail(id);
+        const room = await roomsRepository.findOneOrFail(id, 
+            {
+                relations: ['images']
+            });
 
-        return response.json(room);
+        return response.json(roomView.render(room));
     },
 
     async create(request: Request, response: Response) {
@@ -45,13 +42,20 @@ export default {
 
         const roomsRepository = getRepository(rooms);
 
+        const requestImages = request.files as Express.Multer.File[];
+
+        const images = requestImages?.map(image => {
+            return { path: image.filename }
+        })
+
         const room = roomsRepository.create({
             name,
             campus,
             latitude,
             longitude,
             weight,
-            description
+            description,
+            images
         });
 
         await roomsRepository.save(room);
@@ -91,7 +95,7 @@ export default {
             latitude,
             longitude,
             weight,
-            description
+            description,
         });
 
         const room = await roomsRepository.find();
