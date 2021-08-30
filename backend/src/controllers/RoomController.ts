@@ -2,14 +2,24 @@ import { Request, Response } from "express";
 
 import { getRepository } from "typeorm";
 
-import rooms  from "../models/Rooms";
+import rooms from "../models/Rooms";
+
+interface IProps {
+    id: number
+    name: string
+    campus: string
+    latitude: number
+    longitude: number
+    weight: number
+    description: string
+}
 
 export default {
     async index(request: Request, response: Response) {
         const roomsRepository = getRepository(rooms);
 
         const room = await roomsRepository.find();
-        
+
         return response.json(room);
     },
 
@@ -19,7 +29,7 @@ export default {
         const roomsRepository = getRepository(rooms);
 
         const room = await roomsRepository.findOneOrFail(id);
-        
+
         return response.json(room);
     },
 
@@ -32,9 +42,9 @@ export default {
             weight,
             description
         } = request.body;
-    
+
         const roomsRepository = getRepository(rooms);
-    
+
         const room = roomsRepository.create({
             name,
             campus,
@@ -43,9 +53,9 @@ export default {
             weight,
             description
         });
-    
+
         await roomsRepository.save(room);
-    
+
         return response.status(201).json(room);
     },
 
@@ -57,7 +67,7 @@ export default {
         await roomsRepository.delete(id);
 
         const room = await roomsRepository.find();
-        
+
         return response.json(room);
     },
 
@@ -85,7 +95,17 @@ export default {
         });
 
         const room = await roomsRepository.find();
-    
+
         return response.status(201).json(room);
     },
+
+    /*async showListRoom(request: Request, response: Response) {
+        const { campus } = request.params;
+
+        const roomsRepository = getRepository(rooms);
+
+        const room = await roomsRepository.find({ select: ["id"], where: { id: 1 } });
+
+        return response.json(room);
+    },*/
 }
