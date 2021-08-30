@@ -6,6 +6,8 @@ import rooms from "../models/Rooms";
 
 import roomView from '../views/room_view';
 
+import * as Yup from 'yup'
+
 export default {
 
     // Exibe Todos as salas
@@ -26,7 +28,7 @@ export default {
 
         const roomsRepository = getRepository(rooms);
 
-        const room = await roomsRepository.findOneOrFail(id, 
+        const room = await roomsRepository.findOneOrFail(id,
             {
                 relations: ['images']
             });
@@ -54,7 +56,7 @@ export default {
             return { path: image.filename }
         })
 
-        const room = roomsRepository.create({
+        const data = {
             name,
             campus,
             latitude,
@@ -62,7 +64,25 @@ export default {
             weight,
             description,
             images
+        }
+
+        const schema = Yup.object().shape({
+            name: Yup.string().required('Nome obrigatório'),
+            campus: Yup.string().required('Nome do campus obrigatório'),
+            latitude: Yup.number().required('Latitude da sala obrigatória'),
+            longitude: Yup.number().required('Longitude da sala obrigatória'),
+            weight: Yup.number().required(),
+            description: Yup.string().required('Descrição obrigatória').max(300),
+            images: Yup.array(Yup.object().shape({
+                path: Yup.string().required('Imagem inválida')
+            }))
         });
+
+        await schema.validate(data, {
+            abortEarly: false,
+        })
+
+        const room = roomsRepository.create(data);
 
         await roomsRepository.save(room);
 
@@ -113,7 +133,7 @@ export default {
         return response.status(201).json(room);
     },
 
-    
+
     async showListRoom(request: Request, response: Response) {
         const { campus } = request.params;
 
