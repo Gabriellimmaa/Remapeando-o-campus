@@ -19,10 +19,14 @@ const happyMapIcon = L.icon({
 })
 
 interface RoomProps {
-  name: String;
+  name: string;
   latitude?: number;
   longitude?: number;
   description: string;
+  image: {
+    id: number;
+    url: string;
+  }[];
 }
 
 interface RouteParamsProps {
@@ -32,15 +36,19 @@ interface RouteParamsProps {
 export default function RoomDetails() {
   const { id } = useParams<RouteParamsProps>();
   const [room, setRoom] = useState<RoomProps>();
-  //const [ activeImageIndex, setActiveImageIndex ] = useState(0);
+  const [ activeImageIndex, setActiveImageIndex ] = useState(0);
 
   console.log(room?.latitude)
 
   useEffect(() => {
-      api.get(`room/${id}`).then(response => {
-          setRoom(response.data)
-      });
+    api.get(`room/${id}`).then(response => {
+      setRoom(response.data)
+    });
   }, [id]);
+
+  if (!room) {
+    return <div></div>
+  }
 
   return (
     <div id="page-room">
@@ -48,18 +56,21 @@ export default function RoomDetails() {
 
       <main>
         <div className="room-details">
-          <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
+          <img src={room.image[activeImageIndex].url} alt={room?.name} />
 
           <div className="images">
-            <button className="active" type="button">
-              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
-            </button>
-            <button type="button">
-              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
-            </button>
-            <button type="button">
-              <img src="https://uenp.edu.br/media/k2/items/cache/661821a9442a8dbd824e89bd18c0fd2e_XL.jpg" alt="Teste" />
-            </button>
+            {room.image.map((image, index) => {
+              return (
+                <button 
+                  key={image.id} 
+                  className={activeImageIndex === index ? 'active' : ''} 
+                  type="button"
+                  onClick={() => setActiveImageIndex(index)}
+                  >
+                  <img src={image.url} alt={room.name} />
+                </button>
+              )
+            })}
           </div>
 
           <div className="room-details-content">
@@ -69,7 +80,7 @@ export default function RoomDetails() {
             <div className="map-container">
               <Map
                 center={[
-                  room?.latitude ? room.latitude : 0, 
+                  room?.latitude ? room.latitude : 0,
                   room?.longitude ? room.longitude : 0
                 ]}
                 zoom={16}
@@ -81,10 +92,10 @@ export default function RoomDetails() {
                 doubleClickZoom={false}
               >
                 <TileLayer
-                  url={`https://api.mapbox.com/styles/v1/mapbox/light-v10/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
+                  url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
                 />
                 <Marker interactive={false} icon={happyMapIcon} position={[
-                  room?.latitude ? room.latitude : 0, 
+                  room?.latitude ? room.latitude : 0,
                   room?.longitude ? room.longitude : 0
                 ]} />
               </Map>
