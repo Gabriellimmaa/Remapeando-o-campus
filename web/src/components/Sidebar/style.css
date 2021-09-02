@@ -1,23 +1,27 @@
 aside.app-sidebar {
     position: fixed;
     height: 100%;
-    padding: 32px 24px;
-    background: linear-gradient(329.54deg, #0443d6 0%, #b6ccff 100%);
+    width: 15%;
+    padding: 50px 15px;
+    background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 0 1em rgba(0, 0, 0, 0.22);
 }
 
-aside.app-sidebar img {
-    width: 5rem;
+.button-img img {
+    width: 100%;
+    max-width: 150px;
 }
 
-aside.app-sidebar footer a, aside.app-sidebar footer button {
+aside.app-sidebar footer a,
+aside.app-sidebar footer button {
     width: 48px;
     height: 48px;
     border: 0;
-    background: #0443d6;
+    background: #46609c;
     border-radius: 16px;
     cursor: pointer;
     transition: filter 0.2s;
@@ -26,6 +30,50 @@ aside.app-sidebar footer a, aside.app-sidebar footer button {
     align-items: center;
 }
 
-aside.app-sidebar footer a:hover, aside.app-sidebar footer button:hover {
+aside.app-sidebar footer a:hover,
+aside.app-sidebar footer button:hover {
     filter: brightness(0.8);
+}
+
+.button-img {
+    background-color: transparent;
+    border-color: transparent;
+    cursor: pointer;
+}
+
+@media screen and (max-width: 720px) {
+    aside.app-sidebar {
+        position: absolute;
+        height: 5px;
+        width: 100%;
+        padding: 35px 15px;
+        background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
+        display: flex;
+        flex-direction: row;
+        justify-content: none;
+        align-items: none;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    .button-img img {
+        width: 40%;
+    }
+    .button-img {
+        display: flex;
+        flex-direction: row;
+        justify-content: none;
+        align-items: none;
+    }
+    aside.app-sidebar footer a,
+    aside.app-sidebar footer button {
+        width: 30px;
+        height: 30px;
+        border: 0;
+        background: #46609c;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: filter 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }

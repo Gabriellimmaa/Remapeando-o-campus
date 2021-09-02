@@ -13,8 +13,9 @@ form.create-room-form .leaflet-container {
 }
 
 form.create-room-form {
-  width: 700px;
-  margin: 64px auto;
+  margin-left: 20%;
+  margin-top: 5%;
+  width: 75%;
   background: #FFFFFF;
   border: 1px solid #D3E2E5;
   border-radius: 20px;
@@ -39,6 +40,9 @@ form.create-room-form fieldset legend {
   border-bottom: 1px solid #D3E2E5;
   margin-bottom: 40px;
   padding-bottom: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 form.create-room-form .input-block+.input-block {
@@ -100,18 +104,23 @@ form.create-room-form .input-block .images-container .new-image {
   border: 1px dashed #0443d6;
   border-radius: 20px;
   cursor: pointer;
-
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-
 form.create-room-form .input-block input[type=file] {
   display: none;
 }
 
-
+form.create-room-form .input-block .new-image {
+  width: 100%;
+  height: 64px;
+  background: #F5F8FA;
+  border: 1px dashed #0443d6;
+  border-radius: 20px;
+  cursor: pointer;
+}
 
 form.create-room-form button.confirm-button {
   margin-top: 64px;
@@ -135,4 +144,18 @@ form.create-room-form button.confirm-button svg {
 
 form.create-room-form button.confirm-button:hover {
   background: #36CF82;
+}
+
+@media screen and (max-width: 720px) {
+  form.create-room-form {
+      margin-left: 5%;
+      margin-top: 25%;
+      margin-bottom: 5%;
+      width: 90%;
+      background: #FFFFFF;
+      border: 1px solid #D3E2E5;
+      border-radius: 20px;
+      padding: 30px 15px;
+      overflow: hidden;
+  }
 }

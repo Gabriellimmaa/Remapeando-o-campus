@@ -1,17 +1,18 @@
 import { Map, Marker, TileLayer } from "react-leaflet";
 import L from 'leaflet';
 
-import uenpLogo from '../../assets/UenpLogoPequena.png';
+import iconMap from '../../assets/MapIcon.png';
 
 import './style.css';
 import { Sidebar } from "../../components/Sidebar";
 import { useEffect, useState } from "react";
 import api from "../../services/api";
 
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
+import { FiTrash2 } from "react-icons/fi";
 
 const happyMapIcon = L.icon({
-  iconUrl: uenpLogo,
+  iconUrl: iconMap,
 
   iconSize: [58, 68],
   iconAnchor: [29, 68],
@@ -34,11 +35,10 @@ interface RouteParamsProps {
 }
 
 export default function RoomDetails() {
+  const history = useHistory();
   const { id } = useParams<RouteParamsProps>();
   const [room, setRoom] = useState<RoomProps>();
-  const [ activeImageIndex, setActiveImageIndex ] = useState(0);
-
-  console.log(room?.latitude)
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   useEffect(() => {
     api.get(`room/${id}`).then(response => {
@@ -50,28 +50,37 @@ export default function RoomDetails() {
     return <div></div>
   }
 
+  async function handleDeleteRoom() {
+    await api.delete(`/room/${id}`);
+    alert('Sala Deletada Com Sucesso!');
+    history.push('/');
+  }
+
   return (
     <div id="page-room">
       <Sidebar />
-
       <main>
         <div className="room-details">
-          <img src={room.image[activeImageIndex].url} alt={room?.name} />
-
-          <div className="images">
-            {room.image.map((image, index) => {
-              return (
-                <button 
-                  key={image.id} 
-                  className={activeImageIndex === index ? 'active' : ''} 
-                  type="button"
-                  onClick={() => setActiveImageIndex(index)}
-                  >
-                  <img src={image.url} alt={room.name} />
-                </button>
-              )
-            })}
+          <div className="center-images">
+            <div className="image-thumb">
+              <img src={room.image[activeImageIndex].url} alt={room?.name} />
+              <div className="images">
+                {room.image.map((image, index) => {
+                  return (
+                    <button
+                      key={image.id}
+                      className={activeImageIndex === index ? 'active' : ''}
+                      type="button"
+                      onClick={() => setActiveImageIndex(index)}
+                    >
+                      <img src={image.url} alt={room.name} />
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
           </div>
+
 
           <div className="room-details-content">
             <h1>{room?.name}</h1>
@@ -106,6 +115,10 @@ export default function RoomDetails() {
                 </a>
               </footer>
             </div>
+            <button type="button" className="delete" onClick={handleDeleteRoom}>
+                Deletar Sala
+                <FiTrash2 color="white" size="28" />
+            </button>
           </div>
         </div>
       </main>

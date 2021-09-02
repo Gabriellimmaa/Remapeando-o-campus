@@ -1,26 +1,26 @@
 import './style.css';
 
-import logo from '../../assets/UenpLogoPequena.png';
-
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
 
 import Leaflet from 'leaflet';
 
-import { FiArrowRight } from 'react-icons/fi';
+import { FiArrowRight, FiArrowLeft } from 'react-icons/fi';
+import logoEquipe from '../../assets/logo2Equipe.png';
 
-import marker from "../../assets/UenpLogoPequena.png";
-import { Link, useParams } from 'react-router-dom';
+import marker from '../../assets/MapIcon.png';
+import { Link, useParams, useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import api from '../../services/api';
 import { useState } from 'react';
 
 const mapIcon = Leaflet.icon({
     iconUrl: marker,
-    iconSize: [58, 68],
-    iconAnchor: [29, 68],
-    popupAnchor: [165, 2],
+
+    iconSize: [48, 48],
+    iconAnchor: [23, 48],
+    popupAnchor: [0, -60]
 })
 
 interface RoomsProps {
@@ -37,6 +37,10 @@ interface RouteParamsProps {
 }
 
 export function RoomMap() {
+    const { goBack } = useHistory();
+
+    let history = useHistory();
+
     const { latitude, longitude } = useParams<RouteParamsProps>();
     const [rooms, setRooms] = useState<RoomsProps[]>([]);
 
@@ -56,11 +60,15 @@ export function RoomMap() {
     return (
         <div className="pageMap">
             <aside>
-                <header>
-                    <img src={logo} alt="Logo UENP" />
-                </header>
+                <button type="button" className="button-img" onClick={() => history.push("/")}>
+                    <img src={logoEquipe} title="Voltar ao início" alt="voltar"/>
+                </button>
+                <footer>
+                    <button type="button" onClick={goBack}>
+                        <FiArrowLeft size={24} color="#FFF" />
+                    </button>
+                </footer>
             </aside>
-
             <Map center={[Number(latitude), Number(longitude)]} zoom={15} style={{
                 width: '100%', height: '100%',
             }}>
@@ -69,19 +77,19 @@ export function RoomMap() {
                 {
                     rooms.map(rooms => {
                         return (
-                            rooms.weight === 10 ? 
-                            <Marker
-                            key={rooms.id}
-                            icon={mapIcon}
-                            position={[rooms.latitude, rooms.longitude]}
-                            >
-                            <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
-                                {rooms.name}
-                                <Link to={`/Map/Room/${rooms.id}`}>
-                                    <FiArrowRight size={20} color="#FFF" />
-                                </Link>
-                            </Popup>
-                        </Marker> : null
+                            rooms.weight === 10 ?
+                                <Marker
+                                    key={rooms.id}
+                                    icon={mapIcon}
+                                    position={[rooms.latitude, rooms.longitude]}
+                                >
+                                    <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
+                                        {rooms.name}
+                                        <Link to={`/Map/Room/${rooms.id}`}>
+                                            <FiArrowRight size={20} color="#FFF" />
+                                        </Link>
+                                    </Popup>
+                                </Marker> : null
                         )
                     })
                 }

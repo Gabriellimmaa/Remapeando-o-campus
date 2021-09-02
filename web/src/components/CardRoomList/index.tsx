@@ -7,33 +7,44 @@ import { FiArrowRight } from 'react-icons/fi';
 interface RoomProps {
     room: {
         id: number;
-        name: String;
+        name: string;
         latitude?: number;
         longitude?: number;
         description: string;
+        image: {
+            id: number;
+            url?: string;
+        }[];
     }
 }
 
 export function CardRoomList({ room, ...rest }: RoomProps) {
+
+    if (!room) {
+        return <div></div>
+    }
+
     return (
         <div className="containerList">
             <div className="containerTitle">
+                { room.image[0].url ? <img src={room.image[0].url} alt={room.name} /> : <div></div>}
+            </div>
+            <div className="containerDescription">
                 <div className="title">
                     {room.name}
                 </div>
-                <img src={img} alt="" />
-            </div>
-            <div className="containerDescription">
-                <h3>
+                <h4>
                     Descrição
-                </h3>
+                </h4>
                 <p>
                     {room.description}
                 </p>
             </div>
-            <Link to={`/Map/Room/${room.id}`} className="linkContainer">
-                <FiArrowRight size={20} color="#FFF" />
-            </Link>
+            <div className="linkContainer">
+                <Link to={`/Map/Room/${room.id}`}>
+                    <FiArrowRight size={20} color="#FFF" />
+                </Link>
+            </div>
         </div>
 
     );

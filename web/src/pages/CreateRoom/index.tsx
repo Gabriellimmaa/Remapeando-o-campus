@@ -3,16 +3,16 @@ import L, { LeafletMouseEvent } from 'leaflet';
 
 import { FiPlus } from "react-icons/fi";
 
-import logoUenp from '../../assets/UenpLogoPequena.png';
+import iconMap from '../../assets/MapIcon.png';
 
 import './style.css';
 import { Sidebar } from '../../components/Sidebar';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import api from '../../services/api';
 import { useHistory } from 'react-router-dom';
+import api from '../../services/api';
 
 const happyMapIcon = L.icon({
-  iconUrl: logoUenp,
+  iconUrl: iconMap,
 
   iconSize: [58, 68],
   iconAnchor: [29, 68],
@@ -30,6 +30,7 @@ export function CreateRoom() {
   const [weight, setWeight] = useState('');
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
+
 
   function handleMapClick(event: LeafletMouseEvent) {
     const { lat, lng } = event.latlng;
@@ -100,8 +101,8 @@ export function CreateRoom() {
 
               {
                 position.latitude !== 0 ?
-                  <Marker interactive={false} icon={happyMapIcon} position={[position.latitude, position.longitude]} /> :
-                  null
+                 <Marker interactive={false} icon={happyMapIcon} position={[position.latitude, position.longitude]} /> :
+                 null
               }
 
             </Map>
@@ -122,7 +123,7 @@ export function CreateRoom() {
             </div>
 
             <div className="input-block">
-              <label htmlFor="about">Descrição <span>Máximo de 300 caracteres</span></label>
+              <label htmlFor="about">Descrição<span>Máximo de 300 caracteres</span></label>
               <textarea id="name" maxLength={300} value={description} onChange={e => setDescription(e.target.value)} />
             </div>
 

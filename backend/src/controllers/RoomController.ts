@@ -139,8 +139,8 @@ export default {
 
         const roomsRepository = getRepository(rooms);
 
-        const room = await (await roomsRepository.find()).filter(a => a.campus === campus);
+        const room = (await roomsRepository.find({ relations: ['images'] })).filter(a => a.campus === campus);
 
-        return response.json(room);
+        return response.json(roomView.renderMany(room));
     },
 }

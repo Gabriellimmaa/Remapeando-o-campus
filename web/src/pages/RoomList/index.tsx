@@ -7,10 +7,14 @@ import './style.css';
 
 interface RoomProps {
     id: number;
-    name: String;
+    name: string;
     latitude?: number;
     longitude?: number;
     description: string;
+    image: {
+        id: number;
+        url: string;
+    }[];
 }
 
 export function RoomList() {
@@ -23,23 +27,32 @@ export function RoomList() {
         });
     }, [busca]);
 
-    return (
-        <>
-            <Sidebar />
-            <div className="Container">
+    if(!rooms) {
+        return <div></div>
+    }
 
-                <h2>
-                    Lista de Salas
-                </h2>
-                <input type="text" value={busca} onChange={e => setBusca(e.target.value)}/>
-                {
-                    rooms.map(room => {
-                        return (
-                            <CardRoomList room={room}/>
-                        )
-                    })
-                }
-            </div>
-        </>
+
+    return (
+        <div id="page-room">
+            <Sidebar />
+            <main>
+                <div className="room-list">
+                    <div className="room-list-container">
+                        <h2>
+                            Lista de Salas
+                        </h2>
+                        <input type="text" value={busca} onChange={e => setBusca(e.target.value)} />
+                        <button onClick={() => alert("Em desenvolvimento...")}>Filtrar Por</button>
+                        {
+                            rooms.map(room => {
+                                return (
+                                    <CardRoomList room={room} />
+                                )
+                            })
+                        }
+                    </div>
+                </div>
+            </main>
+        </div>
     );
 }
