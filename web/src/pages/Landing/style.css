@@ -440,6 +440,16 @@
     height: 7.84090909%;
 }
 
+.container-atencao {
+    background: #f3b6b6;
+    border: 1px solid #ff0606;
+    color: #ff0606;
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+    line-height: 28px;
+}
+
 .Cloud {
     background-image: url("/src/assets/Nuvem.png");
 }

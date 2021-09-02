@@ -117,10 +117,32 @@ export function CreateRoom() {
               <input id="name" value={campus} onChange={e => setCampus(e.target.value)} />
             </div>
 
+
             <div className="input-block">
+              <label htmlFor="open_on_weekends">Sala de refêrencia</label>
+
+              <div className="button-select">
+                <button
+                  type="button"
+                  className={weight === '10' ? "active" : ""}
+                  onClick={() => setWeight('10')}
+                >
+                  Sim
+                </button>
+                <button
+                  type="button"
+                  className={weight === '0' ? "active" : ""}
+                  onClick={() => setWeight('0')}
+                >
+                  Não
+                </button>
+              </div>
+            </div>
+
+            {/*<div className="input-block">
               <label htmlFor="name">Peso</label>
               <input id="name" value={weight} onChange={e => setWeight(e.target.value)} />
-            </div>
+            </div>*/}
 
             <div className="input-block">
               <label htmlFor="about">Descrição<span>Máximo de 300 caracteres</span></label>

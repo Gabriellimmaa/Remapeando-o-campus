@@ -20,9 +20,23 @@ export function LandingPage() {
                         </Link>
                         <Link className="button-class" to={`/Map/Room/-23.108/-50.3594239`}>
                             Bandeirantes
-                        </Link>  
+                        </Link>
                         <button className="text" onClick={() => alert("Em desenvolvimento...")}>Ajuda</button>
-                   </div>
+                        <div className="container-atencao">
+                            <p>
+                                ATENÇÃO!
+                            </p>
+                            <p>
+                                A localização de algumas </p>
+                            <p>
+                                salas no mapa pode não ser exata!
+                            </p>
+                            <p>
+                                O site ainda está em desenvolvimento
+                            </p>
+
+                        </div>
+                    </div>
                 </div>
 
                 <div className="Cloud Foreground"></div>
