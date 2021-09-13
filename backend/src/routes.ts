@@ -2,13 +2,17 @@ import { Router } from "express";
 import multer from 'multer';
 
 import uploadConfig from './config/upload';
+import AuthController from "./controllers/AuthController";
 import RoomController from "./controllers/RoomController";
+import UserController from "./controllers/UserController";
+
+import authMiddlewares from "./middlewares/authMiddleware";
 
 const routes = Router();
 const upload = multer(uploadConfig);
 
 // Criação de sala
-routes.post('/room', upload.array('images'), RoomController.create);
+routes.post('/room', authMiddlewares, upload.array('images'), RoomController.create);
 
 // Busca de salas
 routes.get('/room', RoomController.index);
@@ -20,9 +24,12 @@ routes.get('/room/:id', RoomController.show);
 routes.get('/roomList/:campus', RoomController.showListRoom);
 
 // Deletar sala
-routes.delete('/room/:id', RoomController.delete);
+routes.delete('/room/:id', authMiddlewares, RoomController.delete);
 
 // Atualizar sala
-routes.put('/room/:id', RoomController.update);
+routes.put('/room/:id', authMiddlewares, RoomController.update);
 
+/******* ROTAS PARA O USUÁRIO */
+routes.post('/user/create', UserController.create);
+routes.post('/user/authenticate', AuthController.authenticate);
 export default routes;
