@@ -3,6 +3,7 @@ import './style.css';
 import img from '../../assets/UenpLogoPequena.png'
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
+import { converterExibicao } from '../TextFunctions/index'
 
 interface RoomProps {
     room: {
@@ -27,11 +28,11 @@ export function CardRoomList({ room, ...rest }: RoomProps) {
     return (
         <div className="containerList">
             <div className="containerTitle">
-                { room.image[0].url ? <img src={room.image[0].url} alt={room.name} /> : <div></div>}
+                {room.image[0].url ? <img src={room.image[0].url} alt={room.name} /> : <div></div>}
             </div>
             <div className="containerDescription">
                 <div className="title">
-                    {room.name}
+                    {converterExibicao(room.name)}
                 </div>
                 <h4>
                     Descrição

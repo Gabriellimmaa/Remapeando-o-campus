@@ -39,7 +39,39 @@
     padding-bottom: 24px;
 }
 
-.room-list-container input {
+.room-list-container label {
+    font-size: 20px;
+    color: #5c8599;
+    font-weight: 700;
+    margin-left: 2px;
+    padding-left: 5px;
+    padding-right: 30px;
+}
+
+.input-radio {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+}
+
+.input-radio input {
+    background-color: #ddd;
+    border-radius: 10px;
+    border: black solid 1px;
+    cursor: pointer;
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    position: relative;
+    -webkit-appearance: none
+}
+
+.input-radio input:checked {
+    background-color: black;
+}
+
+.input-text {
     width: 100%;
     box-sizing: border-box;
     outline: none;
@@ -54,7 +86,7 @@
     transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
-.room-list-container input:focus {
+.input-text:focus {
     outline: none;
     box-shadow: 0 5px 2px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
@@ -106,5 +138,18 @@
         height: auto;
         color: #000;
         flex-direction: column;
+    }
+    .input-radio {
+        outline: none;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+    }
+}
+
+@media screen and (min-width: 720px) {
+    .input-radio {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { CardRoomList } from "../../components/CardRoomList";
 import { Sidebar } from "../../components/Sidebar";
 import api from "../../services/api";
+import { removerAcentos } from '../../components/TextFunctions/index'
 
 import './style.css';
 
@@ -20,19 +21,28 @@ interface RoomProps {
 export function RoomList() {
     const [busca, setBusca] = useState('');
     const [rooms, setRooms] = useState<RoomProps[]>([]);
+    const [campus, setCampus] = useState('');
 
     useEffect(() => {
-        api.get(`roomList/${busca}`).then(response => {
-            setRooms(response.data);
-        });
-    }, [busca]);
+        if (campus && busca) {
+            api.get(`roomList/${campus}/${removerAcentos(busca)}`).then(response => {
+                setRooms(response.data);
+            });
+        }
+    }, [busca, campus]);
 
-    if(!rooms) {
+    if (!rooms) {
         return <div></div>
     }
 
+    async function check(s: string) {
+        const element = document.getElementById('input-text')!;
+        element.removeAttribute("disabled");
+        setCampus(s);
+    }
 
     return (
+
         <div id="page-room">
             <Sidebar />
             <main>
@@ -41,12 +51,20 @@ export function RoomList() {
                         <h2>
                             Lista de Salas
                         </h2>
-                        <input type="text" value={busca} onChange={e => setBusca(e.target.value)} />
-                        <button onClick={() => alert("Em desenvolvimento...")}>Filtrar Por</button>
+                        <div className="input-radio">
+                            <input type="radio" name="radiobutton" onChange={() => check("jacarezinho")} />
+                            <label>Jacarézinho</label><br />
+                            <input type="radio" name="radiobutton" onChange={() => check("cornelio")} />
+                            <label>Cornélio procópio</label><br />
+                            <input type="radio" name="radiobutton" onChange={() => check("bandeirantes")} />
+                            <label>Bandeirantes</label>
+                        </div>
+
+                        <input disabled placeholder="Selecione um campus e digite o nome da sala" id="input-text" className="input-text" type="text" value={busca} onChange={e => setBusca(e.target.value)} />
                         {
                             rooms.map(room => {
                                 return (
-                                    <CardRoomList room={room} />
+                                    <CardRoomList room={room} key={room.id}/>
                                 )
                             })
                         }
@@ -56,3 +74,5 @@ export function RoomList() {
         </div>
     );
 }
+
+//<button onClick={() => alert("Em desenvolvimento...")}>Filtrar Por</button>

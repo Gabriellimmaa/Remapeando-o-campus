@@ -26,15 +26,16 @@
 .containerTitle {
     display: flex;
     justify-content: center;
-    background-color: white;
     margin-right: 20px;
-    padding: 10px;
 }
 
 .containerTitle img {
     width: auto;
     height: 88px;
     object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
 }
 
 .containerDescription h4 {
@@ -85,14 +86,16 @@
     .containerTitle {
         display: flex;
         justify-content: center;
-        background-color: white;
         margin-right: 20px;
-        padding: 10px;
     }
     .containerTitle img {
         width: auto;
         height: 88px;
         object-fit: cover;
+        border-radius: 10px;
+        border: 2px solid white;
+        border-radius: 10px;
+        display: none;
     }
     .containerDescription h3 {
         margin-bottom: 2%;

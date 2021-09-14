@@ -4,24 +4,21 @@ import L, { LeafletMouseEvent } from 'leaflet';
 import { FiPlus } from "react-icons/fi";
 
 import iconMap from '../../assets/MapIcon.png';
-
+import { removerAcentos } from '../../components/TextFunctions/index'
 import './style.css';
-import { Sidebar } from '../../components/Sidebar';
+import { SidebarCreate } from '../../components/Sidebar';
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 const happyMapIcon = L.icon({
   iconUrl: iconMap,
 
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
+  iconSize: [48, 48],
+  iconAnchor: [23, 48],
   popupAnchor: [0, -60]
 })
 
 export function CreateRoom() {
-  const history = useHistory();
-
   const [position, setPosition] = useState({ latitude: 0, longitude: 0 })
 
   const [name, setName] = useState('');
@@ -33,6 +30,8 @@ export function CreateRoom() {
 
 
   function handleMapClick(event: LeafletMouseEvent) {
+    check("map")
+
     const { lat, lng } = event.latlng;
 
     setPosition({
@@ -42,12 +41,11 @@ export function CreateRoom() {
   }
 
   function handleSelectImage(event: ChangeEvent<HTMLInputElement>) {
-    if(!event.target.files) {
+    if (!event.target.files) {
       return;
     }
-    
-    const selectedImages = Array.from(event.target.files)
 
+    const selectedImages = Array.from(event.target.files)
     setImages(selectedImages);
 
     const selectedImagesPreview = selectedImages.map(image => {
@@ -55,40 +53,181 @@ export function CreateRoom() {
     });
 
     setPreviewImages(selectedImagesPreview);
+    check("image")
   }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
-
     const { latitude, longitude } = position;
-
+    let index = 0;
     const data = new FormData();
 
-    data.append('name', name);
-    data.append('campus', campus);
-    data.append('description', description);
-    data.append('weight', weight);
-    data.append('latitude', String(latitude));
-    data.append('longitude', String(longitude));
+
+
+    if (name === "") {
+      index += 1;
+      const element = document.getElementById('name')!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusName')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    if (campus === "") {
+      index += 1;
+      const element = document.getElementById("campus")!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusCampus')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    if (description === "") {
+      index += 1;
+      const element = document.getElementById("description")!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusDescription')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    if (String(latitude) === "0") {
+      index += 1;
+      const status = document.getElementById('statusMap')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    if (String(longitude) === "0") {
+      index += 1;
+      const status = document.getElementById('statusMap')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    if (weight === "") {
+      index += 1;
+      const element = document.getElementById("sim-nao")!;
+      element.style.border = "1px solid red";
+      element.style.borderRadius = "20px";
+      const status = document.getElementById('statusWeight')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
+    index += 1;
+    const element = document.getElementById("set-image")!;
+    element.style.border = "1px solid red";
+    element.style.borderRadius = "20px";
+    element.style.padding = "10px 10px 3px 10px";
+    const status = document.getElementById('statusImage')!;
+    status.innerHTML = "* Campo obrigatório";
+    status.style.display = "flex";
+
     images.forEach(image => {
-      data.append('images', image);
+      if(image != null){
+        index -= 1;
+        const element = document.getElementById("set-image")!;
+        element.style.border = "none";
+        const status = document.getElementById('statusImage')!;
+        status.style.display = "none";
+      }
     })
+    if (index === 0) {
+      data.append('name', removerAcentos(name));
+      data.append('campus', removerAcentos(campus));
+      data.append('description', description);
+      data.append('weight', weight);
+      data.append('latitude', String(latitude));
+      data.append('longitude', String(longitude));
+      images.forEach(image => {
+        data.append('images', image);
+      })
 
-    await api.post('/room', data);
+      await api.post('/room', data);
+      alert('Cadastro realizado com sucesso!');
+    }else{
+      alert('Cadastro incompleto, verifique se os campos estão preenchidos');
+    }
 
-    alert('Cadastro realizado com sucesso!');
+  }
 
-    history.push('/');
+  async function check(aux: string) {
+    if (aux === "name") {
+      if (name === "") {
+        const element = document.getElementById('name')!;
+        element.style.border = "1px solid red";
+        const status = document.getElementById('statusName')!;
+        status.innerHTML = "* Campo obrigatório";
+        status.style.display = "flex";
+      } else {
+        const element = document.getElementById('name')!;
+        element.style.border = "1px solid #d3e2e5";
+        const status = document.getElementById('statusName')!;
+        status.style.display = "none";
+      }
+    }
+    if (aux === "campus") {
+      const element = document.getElementById('campus')!;
+      element.style.border = "1px solid #d3e2e5";
+      const status = document.getElementById('statusCampus')!;
+      status.style.display = "none";
+    }
+    if (aux === "description") {
+      if (description === "") {
+        const element = document.getElementById("description")!;
+        element.style.border = "1px solid red";
+        const status = document.getElementById('statusDescription')!;
+        status.innerHTML = "* Campo obrigatório";
+        status.style.display = "flex";
+      } else {
+        const element = document.getElementById('description')!;
+        element.style.border = "1px solid #d3e2e5";
+        const status = document.getElementById('statusDescription')!;
+        status.style.display = "none";
+      }
+    }
+
+    if (aux === "map") {
+      const status = document.getElementById('statusMap')!;
+      status.style.display = "none";
+
+      const status2 = document.getElementById('statusMap')!;
+      status2.style.display = "none";
+
+    }
+
+    if (aux === "sim-nao") {
+        const element = document.getElementById('sim-nao')!;
+        element.style.border = "1px solid #d3e2e5";
+        const status = document.getElementById('statusWeight')!;
+        status.style.display = "none";
+      
+    }
+
+    if(aux === "image"){
+      const element = document.getElementById("set-image")!;
+      element.style.border = "none";
+      const status = document.getElementById('statusImage')!;
+      status.style.display = "none";
+
+    }
   }
 
   return (
     <div id="page-create-room">
       <main>
-        <Sidebar />
+        <SidebarCreate/>
         <form className="create-room-form" onSubmit={handleSubmit}>
           <fieldset>
             <legend>Cadastrar Sala</legend>
 
+            <div className="input-block">
+              <div className="statusContainer">
+                <label htmlFor="name">Localização da Sala</label>
+                <div id="statusMap" className="status">status</div>
+              </div>
+            </div>
             <Map
               center={[-23.108, -50.3594239]}
               style={{ width: '100%', height: 280 }}
@@ -101,62 +240,82 @@ export function CreateRoom() {
 
               {
                 position.latitude !== 0 ?
-                 <Marker interactive={false} icon={happyMapIcon} position={[position.latitude, position.longitude]} /> :
-                 null
+                  <Marker interactive={false} icon={happyMapIcon} position={[position.latitude, position.longitude]} /> :
+                  null
               }
 
             </Map>
 
             <div className="input-block">
-              <label htmlFor="name">Nome da Sala</label>
-              <input id="name" value={name} onChange={e => setName(e.target.value)} />
+              <div className="statusContainer">
+                <label htmlFor="name">Nome da Sala</label>
+                <div id="statusName" className="status">status</div>
+              </div>
+              <input type="text" placeholder="Digite o nome da sala" id="name" value={name} onSelect={() => check("name")} onChange={e => setName(e.target.value)} />
             </div>
 
             <div className="input-block">
-              <label htmlFor="name">Nome do Campus</label>
-              <input id="name" value={campus} onChange={e => setCampus(e.target.value)} />
+              <div className="statusContainer">
+                <label htmlFor="campus">Selecione o Campus</label>
+                <div id="statusCampus" className="status">status</div>
+              </div>
+              <div id="campus" className="input-radio">
+                <input type="radio" name="radiobutton" onChange={() => { setCampus("jacarezinho"); check("campus")}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Jacarézinho</p>
+                <br/>
+                
+                <input type="radio" name="radiobutton" onChange={() => { setCampus("cornelio"); check("campus")}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Cornélio procópio</p>
+                <br/>
+                
+                <input type="radio" name="radiobutton" onChange={() => { setCampus("bandeirantes"); check("campus")}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Bandeirantes</p>
+              </div>
             </div>
 
 
             <div className="input-block">
-              <label htmlFor="open_on_weekends">Sala de refêrencia</label>
+              <div className="statusContainer">
+                <label htmlFor="open_on_weekends">Sala de refêrencia</label>
+                <div id="statusWeight" className="status">status</div>
+              </div>
 
-              <div className="button-select">
+              <div id="sim-nao" className="button-select">
                 <button
                   type="button"
                   className={weight === '10' ? "active" : ""}
-                  onClick={() => setWeight('10')}
+                  onClick={() => { setWeight('10'); check("sim-nao") }}
                 >
                   Sim
                 </button>
                 <button
                   type="button"
                   className={weight === '0' ? "active" : ""}
-                  onClick={() => setWeight('0')}
+                  onClick={() => { setWeight('0'); check("sim-nao") }}
                 >
                   Não
                 </button>
               </div>
             </div>
 
-            {/*<div className="input-block">
-              <label htmlFor="name">Peso</label>
-              <input id="name" value={weight} onChange={e => setWeight(e.target.value)} />
-            </div>*/}
-
             <div className="input-block">
-              <label htmlFor="about">Descrição<span>Máximo de 300 caracteres</span></label>
-              <textarea id="name" maxLength={300} value={description} onChange={e => setDescription(e.target.value)} />
+              <div className="statusContainer">
+                <label htmlFor="about">Descrição<span>Máximo de 300 caracteres</span></label>
+                <div id="statusDescription" className="status">status</div>
+              </div>
+              <textarea placeholder="Deixe aqui uma descrição sobre a sala" id="description" maxLength={300} value={description} onSelect={() => check("description")} onChange={e => setDescription(e.target.value)} />
             </div>
 
             <div className="input-block">
-              <label htmlFor="images">Fotos</label>
-
-              <div className="images-container">
+              <div className="statusContainer">
+                <label htmlFor="images">Fotos</label>
+                <div id="statusImage" className="status">status</div>
+              </div>
+              <div id="set-image" className="images-container">
                 {previewImages.map(image => {
                   return (
                     <img key={image} src={image} alt={name} />
-                  ) 
+                  )
                 })}
 
                 <label htmlFor="image[]" className="new-image">
@@ -168,6 +327,7 @@ export function CreateRoom() {
 
             </div>
           </fieldset>
+
           <button className="confirm-button" type="submit">
             Confirmar
           </button>
@@ -176,5 +336,3 @@ export function CreateRoom() {
     </div>
   );
 }
-
-// return `https://a.tile.openstreetmap.org/${z}/${x}/${y}.png`;

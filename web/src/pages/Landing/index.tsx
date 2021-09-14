@@ -21,6 +21,12 @@ export function LandingPage() {
                         <Link className="button-class" to={`/Map/Room/-23.108/-50.3594239`}>
                             Bandeirantes
                         </Link>
+                        <Link className="button-class" to={`/Map/RoomList`}>
+                            Procurar Sala
+                        </Link>
+                        <Link className="button-class" to={`/User/Login`}>
+                            Entrar como administrador
+                        </Link>
                         <button className="text" onClick={() => alert("Em desenvolvimento...")}>Ajuda</button>
                         <div className="container-atencao">
                             <p>

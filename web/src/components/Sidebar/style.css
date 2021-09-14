@@ -35,10 +35,88 @@ aside.app-sidebar footer button:hover {
     filter: brightness(0.8);
 }
 
+aside.app-sidebar-adm {
+    position: fixed;
+    height: 100%;
+    width: 15%;
+    padding: 50px 15px;
+    background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 0 1em rgba(0, 0, 0, 0.22);
+}
+
+aside.app-sidebar-adm footer a,
+aside.app-sidebar-adm footer button {
+    width: 48px;
+    height: 48px;
+    border: 0;
+    background-color: #46609c;
+    border-radius: 16px;
+    margin-bottom: 24%;
+    margin-left: 31%;
+    cursor: pointer;
+    transition: filter 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+}
+
+aside.app-sidebar-adm footer a:hover,
+aside.app-sidebar-adm footer button:hover {
+    filter: brightness(0.8);
+}
+
 .button-img {
     background-color: transparent;
     border-color: transparent;
     cursor: pointer;
+}
+
+.button2 {
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: #183883;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    height: 2rem;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+}
+
+.button1:hover[id="btn"] {
+    cursor: pointer;
+    background-color: #2f4c8f;
+}
+
+.button1 {
+    outline: none;
+    border: none;
+    border-radius: 0.3rem;
+    color: white;
+    background-color: #2f4c8f;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    height: 2rem;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
 }
 
 @media screen and (max-width: 720px) {
@@ -55,13 +133,14 @@ aside.app-sidebar footer button:hover {
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
     }
     .button-img img {
-        width: 40%;
+        width: 100%;
     }
     .button-img {
         display: flex;
         flex-direction: row;
         justify-content: none;
         align-items: none;
+        width: 50px;
     }
     aside.app-sidebar footer a,
     aside.app-sidebar footer button {
@@ -75,5 +154,61 @@ aside.app-sidebar footer button:hover {
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+    aside.app-sidebar-adm {
+        position: absolute;
+        height: 5px;
+        width: 100%;
+        padding: 35px 15px;
+        background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
+        display: flex;
+        flex-direction: row;
+        justify-content: none;
+        align-items: center;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+    aside.app-sidebar-adm footer a,
+    aside.app-sidebar-adm footer button {
+        height: 2rem;
+        background-color: #46609c;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: filter 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        font-size: 15px;
+        width: 50px;
+        right: 3%;
+        bottom: 27%;
+        margin-bottom: 0%;
+        margin-left: 0%;
+    }
+    .button2 {
+        cursor: pointer;
+        outline: none;
+        border: none;
+        border-radius: 0.3rem;
+        width: 30%;
+        font-size: 15px;
+        height: 2rem;
+        padding: 0px;
+        margin-bottom: 0px;
+        margin-left: 10px;
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    }
+    .button1 {
+        outline: none;
+        border: none;
+        border-radius: 0.3rem;
+        color: white;
+        width: 30%;
+        font-size: 15px;
+        height: 2rem;
+        padding: 0px;
+        margin-bottom: 0px;
+        margin-left: 10px;
+        transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     }
 }

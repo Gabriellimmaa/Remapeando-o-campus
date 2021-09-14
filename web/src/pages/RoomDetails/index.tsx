@@ -2,6 +2,7 @@ import { Map, Marker, TileLayer } from "react-leaflet";
 import L from 'leaflet';
 
 import iconMap from '../../assets/MapIcon.png';
+import { converterExibicao } from '../../components/TextFunctions/index'
 
 import './style.css';
 import { Sidebar } from "../../components/Sidebar";
@@ -14,8 +15,8 @@ import { FiTrash2 } from "react-icons/fi";
 const happyMapIcon = L.icon({
   iconUrl: iconMap,
 
-  iconSize: [58, 68],
-  iconAnchor: [29, 68],
+  iconSize: [48, 48],
+  iconAnchor: [23, 48],
   popupAnchor: [0, -60]
 })
 
@@ -83,7 +84,7 @@ export default function RoomDetails() {
 
 
           <div className="room-details-content">
-            <h1>{room?.name}</h1>
+            <h1>{converterExibicao(room?.name.toString())}</h1>
             <p>{room?.description}</p>
 
             <div className="map-container">

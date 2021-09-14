@@ -447,7 +447,9 @@
     display: flex;
     text-align: center;
     flex-direction: column;
-    line-height: 28px;
+    font-size: smaller;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 
 .Cloud {
