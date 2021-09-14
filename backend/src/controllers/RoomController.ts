@@ -48,6 +48,9 @@ export default {
             description
         } = request.body;
 
+        /*name.toLowerCase()
+        campus.toLowerCase();*/
+
         const roomsRepository = getRepository(rooms);
 
         const requestImages = request.files as Express.Multer.File[];
@@ -57,8 +60,8 @@ export default {
         })
 
         const data = {
-            name,
-            campus,
+            name : name.toLowerCase(),
+            campus : campus.toLowerCase(),
             latitude,
             longitude,
             weight,
