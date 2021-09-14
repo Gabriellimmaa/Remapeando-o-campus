@@ -92,15 +92,29 @@ export default {
 
     // Deleta uma Sala
     async delete(request: Request, response: Response) {
-        const { id } = request.params;
+        const { campus, name } = request.params;
 
         const roomsRepository = getRepository(rooms);
 
-        await roomsRepository.delete(id);
+        const room = (await roomsRepository.find({ relations: ['images'] }));
+        let index = 0;
+        for (var key in room) {
+            if(room[key].name === name && room[key].campus === campus){
+                index += 1;
+                await roomsRepository.delete(room[key].id);
+                const obj = {
+                    status: 'Sala deletada com sucesso!'
+                }
+                return response.json(JSON.stringify(obj['status']));
+            }
+        }
 
-        const room = await roomsRepository.find();
-
-        return response.json(room);
+        if(index === 0){
+            const obj = {
+                status: 'Não encontramos nenhuma sala com este nome!'
+            }
+            return response.json(JSON.stringify(obj['status']))
+        }
     },
 
 
@@ -135,11 +149,12 @@ export default {
 
 
     async showListRoom(request: Request, response: Response) {
-        const { campus } = request.params;
+        const { campus, name } = request.params;
+
 
         const roomsRepository = getRepository(rooms);
 
-        const room = (await roomsRepository.find({ relations: ['images'] })).filter(a => a.campus === campus);
+        const room = (await roomsRepository.find({ relations: ['images'] })).filter(a => a.name.startsWith(name) && a.campus === campus);
 
         return response.json(roomView.renderMany(room));
     },
