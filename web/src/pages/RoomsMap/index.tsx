@@ -15,6 +15,9 @@ import { useEffect } from 'react';
 import api from '../../services/api';
 import { useState } from 'react';
 
+import { Context } from '../../Context/AuthContext';
+import { useContext } from 'react';
+
 const mapIcon = Leaflet.icon({
     iconUrl: marker,
 
@@ -45,12 +48,28 @@ export function RoomMap() {
     const [rooms, setRooms] = useState<RoomsProps[]>([]);
 
     const [loading, setLoading] = useState(false);
+    const [latitudeUser, setLatitudeUser] = useState('');
+    const [longitudeUser, setLongitudeUser] = useState('');
+
+    const { authenticated } = useContext(Context);
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        }
+    }
+    function showPosition(position: any) {
+        setLatitudeUser(position.coords.latitude);
+        setLongitudeUser(position.coords.longitude);
+    }
 
     useEffect(() => {
         api.get('room').then(response => {
             setRooms(response.data)
-            setLoading(true)
+            setLoading(true);
         });
+
+        getLocation();
     }, []);
 
     if (!loading) {
@@ -61,8 +80,16 @@ export function RoomMap() {
         <div className="pageMap">
             <aside>
                 <button type="button" className="button-img" onClick={() => history.push("/")}>
-                    <img src={logoEquipe} title="Voltar ao início" alt="voltar"/>
+                    <img src={logoEquipe} title="Voltar ao início" alt="voltar" />
                 </button>
+                {
+                    authenticated ? (
+                        <div style={{flex: 1, width: '100%'}}>
+                            <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
+                            <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/DeleteRoom")}>Deletar sala</button>
+                        </div>
+                    ) : null
+                }
                 <footer>
                     <button type="button" onClick={goBack}>
                         <FiArrowLeft size={24} color="#FFF" />
@@ -74,6 +101,18 @@ export function RoomMap() {
             }}>
                 <TileLayer url={`https://api.mapbox.com/styles/v1/mapbox/satellite-streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`} />
 
+                {
+                    latitudeUser ? (
+                        <Marker
+                            icon={mapIcon}
+                            position={[Number(latitudeUser), Number(longitudeUser)]}
+                        >
+                            <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
+                                Você está aqui!
+                            </Popup>
+                        </Marker>
+                    ) : null
+                }
                 {
                     rooms.map(rooms => {
                         return (

@@ -21,10 +21,10 @@ export function LandingPage() {
                         <Link className="button-class" to={`/Map/Room/-23.108/-50.3594239`}>
                             Bandeirantes
                         </Link>
-                        <Link className="button-class" to={`/Map/RoomList`}>
+                        <Link className="button-class" to={`/Map/RoomList`} style={{backgroundColor: "#0066ff"}}>
                             Procurar Sala
                         </Link>
-                        <Link className="button-class" to={`/User/Login`}>
+                        <Link className="button-class" to={`/User/Login`} style={{backgroundColor: "#2b80ff"}}>
                             Entrar como administrador
                         </Link>
                         <button className="text" onClick={() => alert("Em desenvolvimento...")}>Ajuda</button>

@@ -1,9 +1,13 @@
 import Routes from './routes';
 import './styles/global.css'
 
+import { AuthProvider }  from './Context/AuthContext';
+
 function App() {
   return (
-    <Routes />
+    <AuthProvider>
+      <Routes />
+    </AuthProvider>
   );
 }
 
