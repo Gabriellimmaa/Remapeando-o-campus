@@ -27,19 +27,20 @@ function AuthProvider({ children }) {
 
         
         localStorage.setItem('token', JSON.stringify(token));
+        localStorage.setItem('email', email);
         
         api.defaults.headers.Authorization = `Bearer ${token}`;
         
         setAuthenticated(true);
         
         alert('Logado com sucesso');
-
     }
 
     function handleLogout() {
         setAuthenticated(false);
 
         localStorage.removeItem('token');
+        localStorage.removeItem('email');
         
         api.defaults.headers.Authorization = undefined;
     }

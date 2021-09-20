@@ -69,9 +69,10 @@ export function RoomMap() {
             setLoading(true);
         });
 
-        getLocation();
     }, []);
-
+    
+    getLocation();
+    
     if (!loading) {
         return null;
     }

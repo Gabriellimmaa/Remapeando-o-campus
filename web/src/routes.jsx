@@ -10,12 +10,17 @@ import { LoginUser } from './pages/LoginUser';
 
 import { useContext } from "react";
 import { Context } from './Context/AuthContext';
+import { CreateUser } from './pages/CreateLogin';
 
 function CustomRoute({ isPrivate, ...rest }) {
     const { authenticated } = useContext(Context);
+    const emailAuth = localStorage.getItem('email');
+    
     if(isPrivate && !authenticated) {
          return <Redirect to="/User/Login" />
-    }
+    } else if(isPrivate && emailAuth !== 'test1@gmail.com') {
+        return <Redirect to="/" />
+    } 
 
     return <Route {...rest} />
 }
@@ -32,6 +37,7 @@ function Routes() {
                 <CustomRoute isPrivate path="/Map/DeleteRoom" component={DeleteRoom}/>
 
                 <CustomRoute path="/User/Login" component={LoginUser}/>
+                <CustomRoute isPrivate path="/User/Create" component={CreateUser}/>
             </Switch>
         </BrowserRouter>
     );

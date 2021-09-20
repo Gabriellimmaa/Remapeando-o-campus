@@ -13,19 +13,20 @@ export function Sidebar() {
 
     let history = useHistory();
 
+
     return (
         <aside className="app-sidebar">
             <button type="button" className="button-img" onClick={() => history.push("/")}>
                 <img src={logoEquipe} title="Voltar ao início" alt="Voltar" />
             </button>
-                {
-                    authenticated ? (
-                        <div id="buttonSelectAdmin">
-                            <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
-                            <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/DeleteRoom")}>Deletar sala</button>
-                        </div>
-                    ) : <></>
-                }
+            {
+                authenticated ? (
+                    <div id="buttonSelectAdmin">
+                        <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
+                        <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/DeleteRoom")}>Deletar sala</button>
+                    </div>
+                ) : <></>
+            }
             <footer>
                 <button type="button" onClick={goBack}>
                     <FiArrowLeft size={24} color="#FFF" />

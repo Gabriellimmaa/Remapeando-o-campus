@@ -1,5 +1,5 @@
 import './style.css';
-import { Sidebar, SidebarCreate } from '../../components/Sidebar';
+import { Sidebar } from '../../components/Sidebar';
 
 import { FormEvent, useState } from "react";
 
