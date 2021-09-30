@@ -1,6 +1,5 @@
 import './style.css';
 
-import img from '../../assets/UenpLogoPequena.png'
 import { Link } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
 import { converterExibicao } from '../TextFunctions/index'

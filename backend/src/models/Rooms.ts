@@ -14,13 +14,13 @@ export default class Rooms {
     campus: string;
 
     @Column()
+    type: string;
+
+    @Column()
     latitude: number;
 
     @Column()
     longitude: number;
-
-    @Column()
-    weight: number;
 
     @Column()
     description: string;

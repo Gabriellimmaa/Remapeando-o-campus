@@ -23,8 +23,8 @@ export function CreateRoom() {
 
   const [name, setName] = useState('');
   const [campus, setCampus] = useState('');
+  const [type, setType] = useState('');
   const [description, setDescription] = useState('');
-  const [weight, setWeight] = useState('');
   const [images, setImages] = useState<File[]>([]);
   const [previewImages, setPreviewImages] = useState<string[]>([]);
 
@@ -82,6 +82,15 @@ export function CreateRoom() {
       status.style.display = "flex";
     }
 
+    if (type === "") {
+      index += 1;
+      const element = document.getElementById("type")!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusType')!;
+      status.innerHTML = "* Campo obrigatório";
+      status.style.display = "flex";
+    }
+
     if (description === "") {
       index += 1;
       const element = document.getElementById("description")!;
@@ -101,16 +110,6 @@ export function CreateRoom() {
     if (String(longitude) === "0") {
       index += 1;
       const status = document.getElementById('statusMap')!;
-      status.innerHTML = "* Campo obrigatório";
-      status.style.display = "flex";
-    }
-
-    if (weight === "") {
-      index += 1;
-      const element = document.getElementById("sim-nao")!;
-      element.style.border = "1px solid red";
-      element.style.borderRadius = "20px";
-      const status = document.getElementById('statusWeight')!;
       status.innerHTML = "* Campo obrigatório";
       status.style.display = "flex";
     }
@@ -136,8 +135,8 @@ export function CreateRoom() {
     if (index === 0) {
       data.append('name', removerAcentos(name));
       data.append('campus', removerAcentos(campus));
+      data.append('type', (type));
       data.append('description', description);
-      data.append('weight', weight);
       data.append('latitude', String(latitude));
       data.append('longitude', String(longitude));
       images.forEach(image => {
@@ -197,12 +196,11 @@ export function CreateRoom() {
 
     }
 
-    if (aux === "sim-nao") {
-        const element = document.getElementById('sim-nao')!;
-        element.style.border = "1px solid #d3e2e5";
-        const status = document.getElementById('statusWeight')!;
-        status.style.display = "none";
-      
+    if (aux === "type") {
+      const element = document.getElementById('type')!;
+      element.style.border = "1px solid #d3e2e5";
+      const status = document.getElementById('statusType')!;
+      status.style.display = "none";
     }
 
     if(aux === "image"){
@@ -260,44 +258,69 @@ export function CreateRoom() {
                 <div id="statusCampus" className="status">status</div>
               </div>
               <div id="campus" className="input-radio">
+              <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("jacarezinho"); check("campus")}}/>
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Jacarézinho</p>
-                <br/>
+                </div>
                 
+                <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("cornelio"); check("campus")}}/>
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Cornélio procópio</p>
-                <br/>
+                </div>
                 
+                <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("bandeirantes"); check("campus")}}/>
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Bandeirantes</p>
+                </div>
               </div>
             </div>
 
 
             <div className="input-block">
               <div className="statusContainer">
-                <label htmlFor="open_on_weekends">Sala de refêrencia</label>
-                <div id="statusWeight" className="status">status</div>
+                <label htmlFor="type">Selecione o tipo da sala</label>
+                <div id="statusType" className="status">status</div>
               </div>
-
-              <div id="sim-nao" className="button-select">
-                <button
-                  type="button"
-                  className={weight === '10' ? "active" : ""}
-                  onClick={() => { setWeight('10'); check("sim-nao") }}
-                >
-                  Sim
-                </button>
-                <button
-                  type="button"
-                  className={weight === '0' ? "active" : ""}
-                  onClick={() => { setWeight('0'); check("sim-nao") }}
-                >
-                  Não
-                </button>
+              <div id="type" className="input-radio" onChange={()=>{check("type")}}>
+                <div>
+                  <input type="radio" value="sala" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                  <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Sala</p>
+                </div>
+                <div>
+                <input type="radio" value="laboratório" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Laboratório</p>
+                </div>
+                <div>
+                <input type="radio" value="secretaria" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Secretaria</p>
+                </div>
+                <div>
+                <input type="radio" value="biblioteca" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Biblioteca</p>
+                </div>
+                <div>
+                <input type="radio" value="banheiro" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Banheiro</p>
+                </div>
+                <div>
+                <input type="radio" value="auditório" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Auditório</p>
+                </div>
+                <div>
+                <input type="radio" value="clínica veterinária" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Clínica Veterinária</p>
+                </div>
+                <div>
+                <input type="radio" value="lanchonete" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Lanchonete</p>
+                </div>
+                <div>
+                <input type="radio" value="lazer" name="radioType" onChange={e => { setType(e.target.value)}}/>
+                <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Lazer</p>
+                </div>
               </div>
             </div>
-
+            
             <div className="input-block">
               <div className="statusContainer">
                 <label htmlFor="about">Descrição<span>Máximo de 300 caracteres</span></label>

@@ -9,7 +9,7 @@ aside.app-sidebar {
     position: fixed;
     height: 100%;
     width: 15%;
-    padding: 50px 15px;
+    padding: 25px 15px;
     background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
     display: flex;
     flex-direction: column;
@@ -45,11 +45,12 @@ aside.app-sidebar footer button:hover {
 aside.app-sidebar-adm {
     position: fixed;
     height: 100%;
-    width: 15%;
-    padding: 50px 15px;
+    width: 15.2%;
+    padding: 25px 15px;
     background: linear-gradient(329.54deg, #183883 0%, #5d74a8 100%);
     display: flex;
     flex-direction: column;
+    align-items: center;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 0 1em rgba(0, 0, 0, 0.22);
 }
 
@@ -69,6 +70,22 @@ aside.app-sidebar-adm footer button {
     align-items: center;
     position: absolute;
     bottom: 0;
+}
+
+aside.app-sidebar-adm a.icon2 {
+    display: block;
+    width: 48px;
+    height: 48px;
+    border: 0;
+    background: #46609c;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: filter 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 7%;
 }
 
 aside.app-sidebar-adm footer a:hover,
@@ -95,7 +112,7 @@ aside.app-sidebar-adm footer button:hover {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     height: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -119,7 +136,7 @@ aside.app-sidebar-adm footer button:hover {
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     height: 2rem;
-    margin-bottom: 10px;
+    margin-bottom: 3px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -136,11 +153,8 @@ aside.app-sidebar-adm footer button:hover {
         display: flex;
         flex-direction: row;
         justify-content: none;
-        align-items: none;
+        align-items: center;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-    }
-    .button-img img {
-        width: 100%;
     }
     .button-img {
         display: flex;
@@ -151,16 +165,20 @@ aside.app-sidebar-adm footer button:hover {
     }
     aside.app-sidebar footer a,
     aside.app-sidebar footer button {
-        width: 30px;
-        height: 30px;
-        border: 0;
-        background: #46609c;
+        height: 2rem;
+        background-color: #46609c;
         border-radius: 5px;
         cursor: pointer;
         transition: filter 0.2s;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 15px;
+        width: 50px;
+        right: 3%;
+        bottom: 27%;
+        margin-bottom: 0%;
+        margin-left: 0%;
     }
     aside.app-sidebar-adm {
         position: absolute;
@@ -193,29 +211,40 @@ aside.app-sidebar-adm footer button:hover {
         margin-left: 0%;
     }
     .button2 {
+        position: relative;
+        top: 0;
         cursor: pointer;
         outline: none;
         border: none;
         border-radius: 0.3rem;
-        width: 30%;
+        width: 20%;
         font-size: 15px;
-        height: 2rem;
+        height: 50px;
         padding: 0px;
         margin-bottom: 0px;
         margin-left: 10px;
         transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
     }
     .button1 {
+        position: relative;
+        top: 0;
         outline: none;
         border: none;
         border-radius: 0.3rem;
         color: white;
-        width: 30%;
+        width: 20%;
         font-size: 15px;
-        height: 2rem;
+        height: 50px;
         padding: 0px;
         margin-bottom: 0px;
         margin-left: 10px;
         transition: all 0.3s cubic-bezier(.25, .8, .25, 1);
+    }
+    aside.app-sidebar-adm a.icon2 {
+        height: 30px;
+        position: absolute;
+        right: 10px;
+        top: 20px;
+        border-radius: 5px;
     }
 }

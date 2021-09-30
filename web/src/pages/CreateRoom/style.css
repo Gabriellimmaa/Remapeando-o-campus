@@ -182,35 +182,8 @@ form.create-room-form button.confirm-button {
 
 form.create-room-form button.confirm-button:hover {
     cursor: pointer;
-    background-color: #7e8186;
+    background-color: #2f4c8f;
     box-shadow: 0 5px 2px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-.input-radio {
-    border: 1px solid #D3E2E5;
-    border-radius: 20px;
-}
-
-.input-radio input {
-    display: flex;
-    background-color: #ddd;
-    border-radius: 10px;
-    border: black solid 1px;
-    cursor: pointer;
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    position: relative;
-}
-
-.input-radio a {
-    color: #5c8599;
-    padding-left: 5px;
-    padding-right: 50px;
-}
-
-.input-radio input:checked {
-    background-color: black;
 }
 
 .status {
@@ -231,6 +204,63 @@ form.create-room-form button.confirm-button:hover {
 
 .map {
     border-color: red;
+}
+
+.input-radio {
+    border: 1px solid #D3E2E5;
+    border-radius: 20px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+    padding-left: 15px;
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+
+.input-radio div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-radio input:checked {
+    background-color: black;
+}
+
+.input-radio input[type=radio]:before {
+    content: "";
+    background: #f4f4f4;
+    border-radius: 100%;
+    border: 1px solid #b4b4b4;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    position: relative;
+    vertical-align: top;
+    cursor: pointer;
+    text-align: center;
+    transition: all 250ms ease;
+}
+
+.input-radio input[type=radio]:checked:before {
+    background-color: #183883;
+    box-shadow: inset 0 0 0 1px #f4f4f4;
+}
+
+.input-radio input[type=radio]:focus:before {
+    outline: none;
+    border-color: #183883;
+}
+
+.input-radio input[type=radio]:disabled:before {
+    box-shadow: inset 0 0 0 4px #f4f4f4;
+    border-color: #b4b4b4;
+    background: #b4b4b4;
+}
+
+.input-radio input[type=radio]:empty:before {
+    margin-right: 0;
 }
 
 @media screen and (max-width: 720px) {

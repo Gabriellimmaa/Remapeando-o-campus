@@ -1,15 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useParams, useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
+import api from '../../services/api';
+import { useState } from 'react';
 
+import { Context } from '../../Context/AuthContext';
+import { useContext } from 'react';
 import logo from '../../assets/UenpLogo.png';
 
 import './style.css';
 
 
 export function LandingPage() {
+    const { goBack } = useHistory();
+
+    let history = useHistory();
+    const { authenticated, handleLogout } = useContext(Context);
+
+    async function handleSair() {
+        handleLogout();
+        history.push('/');
+    }
+
     return (
         <div className="container gradient">
             <div className="Clouds">
-                <div className=" container-center">
+                <div className="container-center">
                     <div className="container-itens">
                         <img className="img" src={logo} alt="UENP Logo" />
                         <Link className="button-class" to={`/Map/Room/-23.1747224/-50.6700414`}>
@@ -24,10 +39,28 @@ export function LandingPage() {
                         <Link className="button-class" to={`/Map/RoomList`} style={{backgroundColor: "#0066ff"}}>
                             Procurar Sala
                         </Link>
-                        <Link className="button-class" to={`/User/Login`} style={{backgroundColor: "#2b80ff"}}>
-                            Entrar como administrador
-                        </Link>
-                        <button className="text" onClick={() => alert("Em desenvolvimento...")}>Ajuda</button>
+
+                        {
+                            authenticated ? (
+                                <>
+                                </>
+                            ) :
+                            <Link className="button-class" to={`/User/Login`} style={{backgroundColor: "#2b80ff"}}>
+                                Entrar como administrador
+                            </Link>
+                        } 
+                        {
+                            authenticated ? (
+                                <>
+                                    <div style={{width: "100%", border: "1px solid #d3e2e5", marginBottom: "10px"}}>
+                                    </div>
+                                    <Link className="button-class" id="btn" type="button" to={`/Map/CreateRoom`}>Criar sala</Link>
+                                    <Link className="button-class" id="btn" type="button" to={`/Map/DeleteRoom`}>Deletar sala</Link>
+                                    <button className="button-class" type="button" onClick={handleSair} style={{backgroundColor: "#fa4c4c"}}>Fazer Logout</button>
+                                </>
+                            ) : null
+                        } 
+                        <button className="text" onClick={() => alert("Atendimento via email: remapeandoocampus@gmail.com")}>Ajuda</button>
                         <div className="container-atencao">
                             <p>
                                 ATENÇÃO!

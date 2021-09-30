@@ -16,7 +16,7 @@ export function LoginUser() {
   const history = useHistory();
 
   function validateEmail(email: string) {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
 
@@ -52,7 +52,9 @@ export function LoginUser() {
   }
 
   async function handleSubmit(event: FormEvent) {
+    let index = 0;
     if (validateEmail(email)) {
+      index += 1
     } else {
       const element = document.getElementById('name')!;
       element.style.border = "1px solid red";
@@ -61,7 +63,8 @@ export function LoginUser() {
       status.style.display = "flex";
     }
 
-    if (password.length >= 3) {
+    if (password.length >= 7) {
+      index += 1
     } else {
       const element = document.getElementById('senha')!;
       element.style.border = "1px solid red";
@@ -70,9 +73,17 @@ export function LoginUser() {
       status.style.display = "flex";
     }
     event.preventDefault();
-    
     handleLogin(email, password);
-}
+
+    if (index === 2){
+      handleLogin(email, password);
+      if(authenticated === false){
+        const status = document.getElementById('status')!;
+        status.innerHTML = "Login inválido";
+        status.style.display = "flex";
+      }
+    }
+  }
 
   async function handleSair() {
     handleLogout();
@@ -133,13 +144,9 @@ export function LoginUser() {
             </div>
           </fieldset>
           <div id="status" className="statusCenter">status</div>
-          {
-            !authenticated ? (
-              <button className="confirm-button" type="submit">
-                Confirmar
-              </button>
-            ): null
-          }
+          <button className="confirm-button" type="submit">
+            Confirmar
+          </button>
 
           {
             authenticated ? (

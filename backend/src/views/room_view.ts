@@ -7,10 +7,10 @@ export default {
         return {
             id: room.id,
             name: room.name,
+            type: room.type,
             campus: room.campus,
             latitude: room.latitude,
             longitude: room.longitude,
-            weight: room.weight,
             description: room.description,
             image: imagesView.renderMany(room.images)
         };

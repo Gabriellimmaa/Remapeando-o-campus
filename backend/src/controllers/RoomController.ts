@@ -42,9 +42,9 @@ export default {
         const {
             name,
             campus,
+            type,
             latitude,
             longitude,
-            weight,
             description
         } = request.body;
 
@@ -62,9 +62,9 @@ export default {
         const data = {
             name : name.toLowerCase(),
             campus : campus.toLowerCase(),
+            type,
             latitude,
             longitude,
-            weight,
             description,
             images
         }
@@ -72,9 +72,9 @@ export default {
         const schema = Yup.object().shape({
             name: Yup.string().required('Nome obrigatório'),
             campus: Yup.string().required('Nome do campus obrigatório'),
+            type: Yup.string().required('Tipo de sala obrigatório'),
             latitude: Yup.number().required('Latitude da sala obrigatória'),
             longitude: Yup.number().required('Longitude da sala obrigatória'),
-            weight: Yup.number().required(),
             description: Yup.string().required('Descrição obrigatória').max(300),
             images: Yup.array(Yup.object().shape({
                 path: Yup.string().required('Imagem inválida')
@@ -132,7 +132,6 @@ export default {
             campus,
             latitude,
             longitude,
-            weight,
             description
         } = request.body;
 
@@ -141,7 +140,6 @@ export default {
             campus,
             latitude,
             longitude,
-            weight,
             description,
         });
 

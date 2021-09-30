@@ -87,16 +87,20 @@ export function DeleteRoom() {
                 <div id="statusCampus" className="status">status</div>
               </div>
               <div id="campus" className="input-radio">
+                <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("jacarezinho"); check("campus") }} />
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Jacarézinho</p>
-                <br />
+                </div>
 
+                <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("cornelio"); check("campus") }} />
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Cornélio procópio</p>
-                <br />
+                </div>
                 
+                <div>
                 <input type="radio" name="radiobutton" onChange={() => { setCampus("bandeirantes"); check("campus") }} />
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Bandeirantes</p>
+                </div>
               </div>
             </div>
           </fieldset>

@@ -182,35 +182,8 @@ form.create-room-form button.confirm-button {
 
 form.create-room-form button.confirm-button:hover {
     cursor: pointer;
-    background-color: #7e8186;
+    background-color: #2f4c8f;
     box-shadow: 0 5px 2px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
-.input-radio {
-    border: 1px solid #D3E2E5;
-    border-radius: 20px;
-}
-
-.input-radio input {
-    display: flex;
-    background-color: #ddd;
-    border-radius: 10px;
-    border: black solid 1px;
-    cursor: pointer;
-    display: inline-block;
-    height: 15px;
-    width: 15px;
-    position: relative;
-}
-
-.input-radio a {
-    color: #5c8599;
-    padding-left: 5px;
-    padding-right: 50px;
-}
-
-.input-radio input:checked {
-    background-color: black;
 }
 
 .status {

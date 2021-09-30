@@ -51,7 +51,7 @@ export function RoomList() {
                         <h2>
                             Lista de Salas
                         </h2>
-                        <div className="input-radio">
+                        <div className="input-radio-roomlist" style={{marginBottom: "15px"}}>
                             <input type="radio" name="radiobutton" onChange={() => check("jacarezinho")} />
                             <label>Jacarézinho</label><br />
                             <input type="radio" name="radiobutton" onChange={() => check("cornelio")} />

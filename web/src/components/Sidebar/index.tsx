@@ -8,37 +8,49 @@ import { useContext } from 'react';
 import logoEquipe from '../../assets/logo2Equipe.png';
 
 export function Sidebar() {
-    const { authenticated } = useContext(Context);
     const { goBack } = useHistory();
+    const { authenticated, handleLogout } = useContext(Context);
 
+    async function handleSair() {
+        handleLogout();
+        history.push('/');
+      }
+    
+    
     let history = useHistory();
 
 
     return (
-        <aside className="app-sidebar">
+        <aside className="app-sidebar-adm">
             <button type="button" className="button-img" onClick={() => history.push("/")}>
                 <img src={logoEquipe} title="Voltar ao início" alt="Voltar" />
             </button>
             {
                 authenticated ? (
-                    <div id="buttonSelectAdmin">
-                        <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
+                    <>
+                        <button className="button2" id="select" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
                         <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/DeleteRoom")}>Deletar sala</button>
-                    </div>
-                ) : <></>
+                        <button className="button2" type="button" onClick={handleSair} style={{backgroundColor: "#fa4c4c"}}>Fazer Logout</button>
+                    </>
+                ) : null
             }
-            <footer>
-                <button type="button" onClick={goBack}>
-                    <FiArrowLeft size={24} color="#FFF" />
-                </button>
-            </footer>
+            
+            <a href="javascript:void(0);" className="icon2" onClick={goBack}>
+                <FiArrowLeft size={24} color="#FFF" />
+            </a>
         </aside>
     )
 }
 
 export function SidebarCreate() {
-    const { authenticated } = useContext(Context);
+    const { authenticated, handleLogout } = useContext(Context);
     const { goBack } = useHistory();
+
+    async function handleSair() {
+        handleLogout();
+        history.push('/');
+      }
+    
 
     let history = useHistory();
 
@@ -47,28 +59,32 @@ export function SidebarCreate() {
             <button type="button" className="button-img" onClick={() => history.push("/")}>
                 <img src={logoEquipe} title="Voltar ao início" alt="Voltar" />
             </button>
-
             {
                 authenticated ? (
                     <>
                         <button className="button1" id="select" type="button">Criar sala</button>
                         <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/DeleteRoom")}>Deletar sala</button>
+                        <button className="button2" type="button" onClick={handleSair} style={{backgroundColor: "#fa4c4c"}}>Fazer Logout</button>
                     </>
                 ) : null
             }
 
-            <footer>
-                <button type="button" onClick={goBack}>
-                    <FiArrowLeft size={24} color="#FFF" />
-                </button>
-            </footer>
+            <a href="javascript:void(0);" className="icon2" onClick={goBack}>
+                <FiArrowLeft size={24} color="#FFF" />
+            </a>
         </aside>
     )
 }
 
 export function SidebarDelete() {
-    const { authenticated } = useContext(Context);
+    const { authenticated, handleLogout } = useContext(Context);
     const { goBack } = useHistory();
+
+    async function handleSair() {
+        handleLogout();
+        history.push('/');
+      }
+    
 
     let history = useHistory();
 
@@ -77,21 +93,19 @@ export function SidebarDelete() {
             <button type="button" className="button-img" onClick={() => history.push("/")}>
                 <img src={logoEquipe} title="Voltar ao início" alt="Voltar" />
             </button>
-
             {
                 authenticated ? (
                     <>
-                        <button className="button2" id="btn" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
-                        <button className="button1" id="select" type="button">Deletar sala</button>
+                        <button className="button2" id="select" type="button" onClick={() => history.push("/Map/CreateRoom")}>Criar sala</button>
+                        <button className="button1" id="btn" type="button" >Deletar sala</button>
+                        <button className="button2" type="button" onClick={handleSair} style={{backgroundColor: "#fa4c4c"}}>Fazer Logout</button>
                     </>
                 ) : null
             }
 
-            <footer>
-                <button type="button" onClick={goBack}>
-                    <FiArrowLeft size={24} color="#FFF" />
-                </button>
-            </footer>
+            <a href="javascript:void(0);" className="icon2" onClick={goBack}>
+                <FiArrowLeft size={24} color="#FFF" />
+            </a>
         </aside>
     )
 }
