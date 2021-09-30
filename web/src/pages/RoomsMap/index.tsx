@@ -28,10 +28,14 @@ const mapIcon = Leaflet.icon({
 
 interface RoomsProps {
     id: number;
-    name: String;
+    name: string;
     latitude: number;
     longitude: number;
     weight: number;
+    image: {
+        id: number;
+        url: string;
+    }[];
 }
 
 interface RouteParamsProps {
@@ -124,6 +128,9 @@ export function RoomMap() {
                                     position={[rooms.latitude, rooms.longitude]}
                                 >
                                     <Popup closeButton={false} minWidth={240} maxHeight={240} className="mapPopup">
+                                        {rooms.image ? (
+                                            <img src={rooms.image[0].url} alt={rooms.name} style={{height: "50px"}}/>
+                                        ): null}
                                         {rooms.name}
                                         <Link to={`/Map/Room/${rooms.id}`}>
                                             <FiArrowRight size={20} color="#FFF" />

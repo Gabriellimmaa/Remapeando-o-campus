@@ -15,15 +15,64 @@ export function LoginUser() {
 
   const history = useHistory();
 
-  async function handleSubmit(event: FormEvent) {
-    event.preventDefault();
-
-    handleLogin(email, password);
-
-    history.push('/Map/CreateRoom');
-
-    console.log(authenticated);
+  function validateEmail(email: string) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   }
+
+  async function check(aux: string) {
+    if (aux === "email") {
+      if (email === "") {
+        const element = document.getElementById('name')!;
+        element.style.border = "1px solid red";
+        const status = document.getElementById('statusEmail')!;
+        status.innerHTML = "* Campo obrigatório";
+        status.style.display = "flex";
+      } else {
+        const element = document.getElementById('name')!;
+        element.style.border = "1px solid #d3e2e5";
+        const status = document.getElementById('statusEmail')!;
+        status.style.display = "none";
+      }
+    }
+    if (aux === "senha") {
+      if (password === "") {
+        const element = document.getElementById('senha')!;
+        element.style.border = "1px solid red";
+        const status = document.getElementById('statusSenha')!;
+        status.innerHTML = "* Campo obrigatório";
+        status.style.display = "flex";
+      } else {
+        const element = document.getElementById('senha')!;
+        element.style.border = "1px solid #d3e2e5";
+        const status = document.getElementById('statusSenha')!;
+        status.style.display = "none";
+      }
+    }
+  }
+
+  async function handleSubmit(event: FormEvent) {
+    if (validateEmail(email)) {
+    } else {
+      const element = document.getElementById('name')!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusEmail')!;
+      status.innerHTML = "* Email inválido";
+      status.style.display = "flex";
+    }
+
+    if (password.length >= 3) {
+    } else {
+      const element = document.getElementById('senha')!;
+      element.style.border = "1px solid red";
+      const status = document.getElementById('statusSenha')!;
+      status.innerHTML = "* Mínimo de 7 caracteres";
+      status.style.display = "flex";
+    }
+    event.preventDefault();
+    
+    handleLogin(email, password);
+}
 
   async function handleSair() {
     handleLogout();
@@ -56,34 +105,41 @@ export function LoginUser() {
             <div className="input-block">
               <div className="statusContainer">
                 <label htmlFor="name">Email</label>
-                <div id="statusName" className="status">status</div>
+                <div id="statusEmail" className="status">status</div>
               </div>
               <input
                 type="text"
                 placeholder="Digite o seu email de login"
                 id="name"
                 value={email}
-                onChange={e => setEmail(e.target.value)}
+                onChange={e => {setEmail(e.target.value)}}
+                onSelect={() => check("email")}
               />
             </div>
             <div className="input-block">
               <div className="statusContainer">
                 <label htmlFor="name">Senha</label>
-                <div id="statusName" className="status">status</div>
+                <div id="statusSenha" className="status">status</div>
               </div>
               <input
                 type="text"
                 placeholder="Digite a sua senha"
-                id="name"
+                id="senha"
                 value={password}
-                onChange={e => setPassword(e.target.value)}
+                onChange={e => {setPassword(e.target.value)}}
+                onSelect={() => check("senha")}
+
               />
             </div>
           </fieldset>
-
-          <button className="confirm-button" type="submit">
-            Confirmar
-          </button>
+          <div id="status" className="statusCenter">status</div>
+          {
+            !authenticated ? (
+              <button className="confirm-button" type="submit">
+                Confirmar
+              </button>
+            ): null
+          }
 
           {
             authenticated ? (

@@ -24,7 +24,7 @@ routes.get('/room/:id', RoomController.show);
 routes.get('/roomList/:campus/:name', RoomController.showListRoom);
 
 // Deletar sala
-routes.delete('/room/:id/:name', RoomController.delete);
+routes.delete('/room/:campus/:name', RoomController.delete);
 
 // Atualizar sala
 routes.put('/room/:id', RoomController.update);

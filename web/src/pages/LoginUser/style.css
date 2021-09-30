@@ -224,6 +224,17 @@ form.create-room-form button.confirm-button:hover {
     margin-right: 2%;
 }
 
+.statusCenter {
+    color: red;
+    line-height: 24px;
+    margin-top: 30px;
+    font-weight: normal;
+    font-size: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
 .statusContainer {
     display: flex;
     justify-content: space-between;
