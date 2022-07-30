@@ -420,15 +420,15 @@ export function CreateRoom() {
               </div>
               <div id="piso" className="input-radio" onChange={()=>{check("piso")}}>
                 <div>
-                  <input type="radio" name="radioType" onChange={e => { setPiso(1)}}/>
+                  <input type="radio" name="radioTypePiso" onChange={e => { setPiso(1)}}/>
                   <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Piso 1</p>
                 </div>
                 <div>
-                <input type="radio" name="radioType" onChange={e => { setPiso(2)}}/>
+                <input type="radio" name="radioTypePiso" onChange={e => { setPiso(2)}}/>
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Piso 2</p>
                 </div>
                 <div>
-                <input type="radio" name="radioType" onChange={e => { setPiso(3)}}/>
+                <input type="radio" name="radioTypePiso" onChange={e => { setPiso(3)}}/>
                 <p style={{marginLeft: "5px", color: "#5c8599", marginRight: "40px"}}>Piso 3</p>
                 </div>
               </div>
